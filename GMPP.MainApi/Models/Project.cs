@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GMPP.MainApi.Models
 {
-
+    /// <summary>
+    /// Project execution status
+    /// </summary>
     public enum StatusProject
     {
         NotStarted,
@@ -12,6 +14,9 @@ namespace GMPP.MainApi.Models
         Close
     }
 
+    /// <summary>
+    /// Type of technology used in the implementation of the project
+    /// </summary>
     public enum TypeProject
     {
         Web,
@@ -21,6 +26,9 @@ namespace GMPP.MainApi.Models
         DataScience,
     }
 
+    /// <summary>
+    /// Skill level for execute Project
+    /// </summary>
     public enum LevelProject
     {
         Easy,
