@@ -1,43 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace GMPP.MainApi.Models
+namespace GMPP.MainApi.Models.Dtos
 {
-    /// <summary>
-    /// Project execution status
-    /// </summary>
-    public enum StatusProject
-    {
-        NotStarted,
-        Active,
-        Completed,
-        Close
-    }
-
-    /// <summary>
-    /// Type of technology used in the implementation of the project
-    /// </summary>
-    public enum TypeProject
-    {
-        Web,
-        Desktop,
-        Cloud,
-        MobileApp,
-        DataScience,
-    }
-
-    /// <summary>
-    /// Skill level for execute Project
-    /// </summary>
-    public enum LevelProject
-    {
-        Easy,
-        Medium,
-        Hard,
-        VeryHard
-    }
-
-    public class Project
+    public class ProjectDto
     {
 
         /// <summary>
@@ -53,46 +20,32 @@ namespace GMPP.MainApi.Models
         /// <summary>
         /// Name project
         /// </summary>
-        [Required]
-        [Column(TypeName = "nvarchar(50)")]
         public string Name { get; set; }
 
         /// <summary>
         /// Description project
         /// </summary>
-        [Required]
-        [Column(TypeName = "nvarchar(300)")]
         public string Description { get; set; }
 
         /// <summary>
         /// Create date project
         /// </summary>
-        [Required]
         public DateTime CreatedDate { get; set; }
 
         /// <summary>
         /// Project execution status
         /// </summary>
-        [Required]
         public StatusProject Status { get; set; }
 
         /// <summary>
         /// Type project
         /// </summary>
-        [Required]
         public TypeProject Type { get; set; }
 
         /// <summary>
         /// Desired skill level
         /// </summary>
-        [Required]
         public LevelProject Level { get; set; }
-
-        /// <summary>
-        /// Navigation object
-        /// </summary>
-        [ForeignKey("IdCreator")]
-        public User User { get; set; }
 
     }
 }
