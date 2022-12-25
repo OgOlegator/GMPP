@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GMPP.MainApi.Controllers
 {
+    /// <summary>
+    /// Controller for work with entity User
+    /// </summary>
     [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase

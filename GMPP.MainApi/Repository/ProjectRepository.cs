@@ -65,7 +65,7 @@ namespace GMPP.MainApi.Repository
 
             if (project == null)
             {
-                throw new ArgumentNullException("Project not found");
+                throw new ArgumentNullException(id.ToString(), "Project not found");
             }
 
             _db.Projects.Remove(project);
@@ -93,7 +93,7 @@ namespace GMPP.MainApi.Repository
             var project = await _db.Projects.FirstOrDefaultAsync(item => item.Id == id);
 
             if (project == null)
-                throw new ArgumentNullException("ProjectId", "Project not found");
+                throw new ArgumentNullException(id.ToString(), "Project not found");
 
             return _mapper.Map<ProjectDto>(project);
         }

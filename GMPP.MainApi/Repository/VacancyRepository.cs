@@ -65,7 +65,7 @@ namespace GMPP.MainApi.Repository
 
             if (vacancy == null)
             {
-                throw new ArgumentNullException("Vacancy not found");
+                throw new ArgumentNullException(id.ToString(), "Vacancy not found");
             }
 
             _db.Vacancies.Remove(vacancy);
@@ -104,7 +104,7 @@ namespace GMPP.MainApi.Repository
             var vacancy = await _db.Vacancies.FirstOrDefaultAsync(item => item.Id == vacancyId);
 
             if (vacancy == null)
-                throw new ArgumentNullException("vacancyId", "Vacancy not found");
+                throw new ArgumentNullException(vacancyId.ToString(), "Vacancy not found");
 
             return _mapper.Map<VacancyDto>(vacancy);
         }

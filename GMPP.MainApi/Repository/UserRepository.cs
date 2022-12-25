@@ -65,7 +65,7 @@ namespace GMPP.MainApi.Repository
 
             if (user == null)
             {
-                throw new ArgumentNullException("User not found");
+                throw new ArgumentNullException(id.ToString(), "User not found");
             }
 
             _db.Users.Remove(user);
@@ -93,7 +93,7 @@ namespace GMPP.MainApi.Repository
             var user = await _db.Users.FirstOrDefaultAsync(item => item.Id == id);
 
             if (user == null)
-                throw new ArgumentNullException("id", "User not found");
+                throw new ArgumentNullException(id.ToString(), "User not found");
 
             return _mapper.Map<UserDto>(user);
         }
