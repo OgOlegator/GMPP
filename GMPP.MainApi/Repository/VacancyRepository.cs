@@ -46,7 +46,7 @@ namespace GMPP.MainApi.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to create/update project", ex);
+                throw new Exception("Failed to create/update vacancy", ex);
             }
 
             return _mapper.Map<Vacancy, VacancyDto>(vacancy);
@@ -65,7 +65,7 @@ namespace GMPP.MainApi.Repository
 
             if (vacancy == null)
             {
-                throw new ArgumentNullException("User not found");
+                throw new ArgumentNullException("Vacancy not found");
             }
 
             _db.Vacancies.Remove(vacancy);
@@ -76,7 +76,7 @@ namespace GMPP.MainApi.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to delete user in db", ex);
+                throw new Exception("Failed to delete vacancy in db", ex);
             }
 
             return true;
@@ -102,6 +102,9 @@ namespace GMPP.MainApi.Repository
         public async Task<VacancyDto> GetVacancyById(int vacancyId)
         {
             var vacancy = await _db.Vacancies.FirstOrDefaultAsync(item => item.Id == vacancyId);
+
+            if (vacancy == null)
+                throw new ArgumentNullException("vacancyId", "Vacancy not found");
 
             return _mapper.Map<VacancyDto>(vacancy);
         }

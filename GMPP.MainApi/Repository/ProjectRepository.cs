@@ -87,10 +87,14 @@ namespace GMPP.MainApi.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task<ProjectDto> GetProjectById(int id)
         {
             var project = await _db.Projects.FirstOrDefaultAsync(item => item.Id == id);
-            
+
+            if (project == null)
+                throw new ArgumentNullException("ProjectId", "Project not found");
+
             return _mapper.Map<ProjectDto>(project);
         }
 
@@ -112,8 +116,8 @@ namespace GMPP.MainApi.Repository
         /// <returns></returns>
         public async Task<IEnumerable<ProjectDto>> GetProjectsByUser(int userId)
         {
-            var listProjects = await _db.Projects.FirstOrDefaultAsync(item => item.IdCreator == userId);
-            
+            var listProjects = await _db.Projects.Where(item => item.IdCreator == userId).ToListAsync();
+
             return _mapper.Map<List<ProjectDto>>(listProjects);
         }
     }

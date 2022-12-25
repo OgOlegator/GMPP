@@ -46,7 +46,7 @@ namespace GMPP.MainApi.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to create/update project", ex);
+                throw new Exception("Failed to create/update user", ex);
             }
 
             return _mapper.Map<User, UserDto>(user);
@@ -87,9 +87,13 @@ namespace GMPP.MainApi.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task<UserDto> GetUserInfo(int id)
         {
             var user = await _db.Users.FirstOrDefaultAsync(item => item.Id == id);
+
+            if (user == null)
+                throw new ArgumentNullException("id", "User not found");
 
             return _mapper.Map<UserDto>(user);
         }
