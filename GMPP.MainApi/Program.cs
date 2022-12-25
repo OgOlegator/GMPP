@@ -1,5 +1,7 @@
 using GMPP.MainApi;
 using GMPP.MainApi.DbContexts;
+using GMPP.MainApi.Repository.IRepository;
+using GMPP.MainApi.Repository;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Converters;
 
@@ -13,7 +15,9 @@ var mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(o =>
 {

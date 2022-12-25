@@ -20,7 +20,7 @@ namespace GMPP.MainApi.Repository.IRepository
         Task<bool> DeleteVacancy(int id);
 
         /// <summary>
-        /// get all vacancies in project
+        /// Get all vacancies in project
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
