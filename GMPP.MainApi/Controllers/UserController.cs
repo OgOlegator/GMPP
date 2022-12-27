@@ -29,12 +29,12 @@ namespace GMPP.MainApi.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{userId}")]
-        public async Task<ResponseDto> GetUserInfo(string userId)
+        [Route("{userId:int}")]
+        public async Task<ResponseDto> GetUserInfo(int userId)
         {
             try
             {
-                _response.Result = await _repository.GetUserInfo(int.Parse(userId));
+                _response.Result = await _repository.GetUserInfo(userId);
             }
             catch (Exception ex)
             {
@@ -96,12 +96,12 @@ namespace GMPP.MainApi.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{userId}")]
-        public async Task<ResponseDto> DeleteUser(string userId)
+        [Route("{userId:int}")]
+        public async Task<ResponseDto> DeleteUser(int userId)
         {
             try
             {
-                _response.Result = await _repository.DeleteUser(int.Parse(userId));
+                _response.Result = await _repository.DeleteUser(userId);
             }
             catch (Exception ex)
             {

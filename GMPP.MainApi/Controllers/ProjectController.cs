@@ -51,12 +51,12 @@ namespace GMPP.MainApi.Controllers
         /// <param name="projectId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{projectId}")]
-        public async Task<ResponseDto> GetProjectById(string projectId)
+        [Route("{projectId:int}")]
+        public async Task<ResponseDto> GetProjectById(int projectId)
         {
             try
             {
-                _response.Result = await _repository.GetProjectById(int.Parse(projectId));
+                _response.Result = await _repository.GetProjectById(projectId);
             }
             catch (Exception ex)
             {
@@ -74,12 +74,12 @@ namespace GMPP.MainApi.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetByUser/{userId}")]
-        public async Task<ResponseDto> GetProjectsByUser(string userId)
+        [Route("GetByUser/{userId:int}")]
+        public async Task<ResponseDto> GetProjectsByUser(int userId)
         {
             try
             {
-                _response.Result = await _repository.GetProjectsByUser(int.Parse(userId));
+                _response.Result = await _repository.GetProjectsByUser(userId);
             }
             catch (Exception ex)
             {
@@ -141,12 +141,12 @@ namespace GMPP.MainApi.Controllers
         /// <param name="projectId"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{projectId}")]
-        public async Task<ResponseDto> DeleteProject(string projectId)
+        [Route("{projectId:int}")]
+        public async Task<ResponseDto> DeleteProject(int projectId)
         {
             try
             {
-                _response.Result = await _repository.DeleteProject(int.Parse(projectId));
+                _response.Result = await _repository.DeleteProject(projectId);
             }
             catch (Exception ex)
             {
