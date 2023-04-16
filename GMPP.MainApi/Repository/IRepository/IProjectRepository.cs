@@ -17,7 +17,7 @@ namespace GMPP.MainApi.Repository.IRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<bool> DeleteProject(int id);
+        Task<bool> DeleteProject(string id);
 
         /// <summary>
         /// Get all projects
@@ -30,14 +30,14 @@ namespace GMPP.MainApi.Repository.IRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ProjectDto> GetProjectById(int id);
+        Task<ProjectDto> GetProjectById(string id);
 
         /// <summary>
         /// Get projects by user id in data base
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IEnumerable<ProjectDto>> GetProjectsByUser(int userId);
+        Task<IEnumerable<ProjectDto>> GetProjectsByUser(string userId);
 
     }
 }

@@ -43,12 +43,14 @@ namespace GMPP.MainApi.Models
         /// <summary>
         /// Unique id project
         /// </summary>
-        public int Id { get; set; }
+        [Required]
+        public string Id { get; set; }
 
         /// <summary>
         /// ID of the user who created the project
         /// </summary>
-        public int IdCreator { get; set; }
+        [Required]
+        public string IdCreator { get; set; }
 
         /// <summary>
         /// Name project
@@ -87,12 +89,6 @@ namespace GMPP.MainApi.Models
         /// </summary>
         [Required]
         public LevelProject Level { get; set; }
-
-        /// <summary>
-        /// Navigation object
-        /// </summary>
-        [ForeignKey("IdCreator")]
-        public User User { get; set; }
 
     }
 }

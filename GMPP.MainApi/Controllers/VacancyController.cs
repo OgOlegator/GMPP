@@ -30,7 +30,7 @@ namespace GMPP.MainApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{vacancyId:int}")]
-        public async Task<ResponseDto> GetVacancyById(int vacancyId)
+        public async Task<ResponseDto> GetVacancyById(string vacancyId)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace GMPP.MainApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetByProject/{projectId:int}")]
-        public async Task<ResponseDto> GetVacanciesByProject(int projectId)
+        public async Task<ResponseDto> GetVacanciesByProject(string projectId)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace GMPP.MainApi.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("{vacancyId:int}")]
-        public async Task<ResponseDto> DeleteVacancy(int vacancyId)
+        public async Task<ResponseDto> DeleteVacancy(string vacancyId)
         {
             try
             {

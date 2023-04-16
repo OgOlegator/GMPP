@@ -31,7 +31,9 @@ namespace GMPP.MainApi.Repository
         {
             var project = _mapper.Map<Project>(projectDto);
 
-            if (project.Id > 0)
+            var changeProject = await _db.Projects.FirstOrDefaultAsync(item => item.Id == project.Id);
+
+            if (changeProject != null)
             {
                 _db.Projects.Update(project);
             }
@@ -59,7 +61,7 @@ namespace GMPP.MainApi.Repository
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception"></exception>
-        public async Task<bool> DeleteProject(int id)
+        public async Task<bool> DeleteProject(string id)
         {
             var project = await _db.Projects.FirstOrDefaultAsync(item => item.Id == id);
 
@@ -88,7 +90,7 @@ namespace GMPP.MainApi.Repository
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<ProjectDto> GetProjectById(int id)
+        public async Task<ProjectDto> GetProjectById(string id)
         {
             var project = await _db.Projects.FirstOrDefaultAsync(item => item.Id == id);
 
@@ -114,7 +116,7 @@ namespace GMPP.MainApi.Repository
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<ProjectDto>> GetProjectsByUser(int userId)
+        public async Task<IEnumerable<ProjectDto>> GetProjectsByUser(string userId)
         {
             var listProjects = await _db.Projects.Where(item => item.IdCreator == userId).ToListAsync();
 

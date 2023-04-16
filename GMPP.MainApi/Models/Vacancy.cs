@@ -17,10 +17,10 @@ namespace GMPP.MainApi.Models
         /// <summary>
         /// Unique id vacancy
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
-        public int IdProject { get; set; }
+        public string IdProject { get; set; }
 
         /// <summary>
         /// Name vacancy

@@ -10,12 +10,12 @@ namespace GMPP.MainApi.Models.Dtos
         /// <summary>
         /// Unique id project
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// ID of the user who created the project
         /// </summary>
-        public int IdCreator { get; set; }
+        public string IdCreator { get; set; }
 
         /// <summary>
         /// Name project

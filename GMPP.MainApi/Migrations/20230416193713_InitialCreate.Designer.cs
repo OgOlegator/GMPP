@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GMPP.MainApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221224163436_CreateModelsInDB")]
-    partial class CreateModelsInDB
+    [Migration("20230416193713_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,41 @@ namespace GMPP.MainApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("GMPP.MainApi.Models.JobPosting", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IdVacancy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TextResponsd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdVacancy");
+
+                    b.ToTable("JobPostings");
+                });
+
             modelBuilder.Entity("GMPP.MainApi.Models.Project", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -40,8 +68,9 @@ namespace GMPP.MainApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("IdCreator")
-                        .HasColumnType("int");
+                    b.Property<string>("IdCreator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Level")
                         .IsRequired()
@@ -61,50 +90,21 @@ namespace GMPP.MainApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCreator");
-
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("GMPP.MainApi.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NickName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("GMPP.MainApi.Models.Vacancy", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("IdProject")
-                        .HasColumnType("int");
+                    b.Property<string>("IdProject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -121,15 +121,15 @@ namespace GMPP.MainApi.Migrations
                     b.ToTable("Vacancies");
                 });
 
-            modelBuilder.Entity("GMPP.MainApi.Models.Project", b =>
+            modelBuilder.Entity("GMPP.MainApi.Models.JobPosting", b =>
                 {
-                    b.HasOne("GMPP.MainApi.Models.User", "User")
+                    b.HasOne("GMPP.MainApi.Models.Vacancy", "Vacancy")
                         .WithMany()
-                        .HasForeignKey("IdCreator")
+                        .HasForeignKey("IdVacancy")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Vacancy");
                 });
 
             modelBuilder.Entity("GMPP.MainApi.Models.Vacancy", b =>

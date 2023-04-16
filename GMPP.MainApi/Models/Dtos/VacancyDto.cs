@@ -10,9 +10,9 @@ namespace GMPP.MainApi.Models.Dtos
         /// <summary>
         /// Unique id vacancy
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
-        public int IdProject { get; set; }
+        public string IdProject { get; set; }
 
         /// <summary>
         /// Name vacancy

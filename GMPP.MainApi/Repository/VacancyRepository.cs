@@ -31,7 +31,9 @@ namespace GMPP.MainApi.Repository
         {
             var vacancy = _mapper.Map<Vacancy>(vacancyDto);
 
-            if (vacancy.Id > 0)
+            var changeVacancy = await _db.Vacancies.FirstOrDefaultAsync(item => item.Id == vacancy.Id);
+
+            if (changeVacancy != null)
             {
                 _db.Vacancies.Update(vacancy);
             }
@@ -59,7 +61,7 @@ namespace GMPP.MainApi.Repository
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception"></exception>
-        public async Task<bool> DeleteVacancy(int id)
+        public async Task<bool> DeleteVacancy(string id)
         {
             var vacancy = await _db.Vacancies.FirstOrDefaultAsync(item => item.Id == id);
 
@@ -87,7 +89,7 @@ namespace GMPP.MainApi.Repository
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<VacancyDto>> GetVacanciesByProject(int projectId)
+        public async Task<IEnumerable<VacancyDto>> GetVacanciesByProject(string projectId)
         {
             var listVacancies = await _db.Vacancies.Where(item => item.IdProject == projectId).ToListAsync();
 
@@ -99,7 +101,7 @@ namespace GMPP.MainApi.Repository
         /// </summary>
         /// <param name="vacancyId"></param>
         /// <returns></returns>
-        public async Task<VacancyDto> GetVacancyById(int vacancyId)
+        public async Task<VacancyDto> GetVacancyById(string vacancyId)
         {
             var vacancy = await _db.Vacancies.FirstOrDefaultAsync(item => item.Id == vacancyId);
 

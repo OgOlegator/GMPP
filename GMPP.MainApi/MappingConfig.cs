@@ -11,8 +11,6 @@ namespace GMPP.MainApi
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                config.CreateMap<UserDto, User>();
-                config.CreateMap<User, UserDto>();
                 config.CreateMap<ProjectDto, Project>();
                 config.CreateMap<Project, ProjectDto>();
                 config.CreateMap<VacancyDto, Vacancy>();

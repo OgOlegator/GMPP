@@ -17,21 +17,21 @@ namespace GMPP.MainApi.Repository.IRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<bool> DeleteVacancy(int id);
+        Task<bool> DeleteVacancy(string id);
 
         /// <summary>
         /// Get all vacancies in project
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        Task<IEnumerable<VacancyDto>> GetVacanciesByProject(int projectId);
+        Task<IEnumerable<VacancyDto>> GetVacanciesByProject(string projectId);
 
         /// <summary>
         /// Get concrete vacancy
         /// </summary>
         /// <param name="vacancyId"></param>
         /// <returns></returns>
-        Task<VacancyDto> GetVacancyById(int vacancyId);
+        Task<VacancyDto> GetVacancyById(string vacancyId);
 
     }
 }
