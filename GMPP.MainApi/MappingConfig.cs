@@ -4,6 +4,9 @@ using GMPP.MainApi.Models.Dtos;
 
 namespace GMPP.MainApi
 {
+    /// <summary>
+    /// Настройка маппера для сущностей
+    /// </summary>
     public class MappingConfig
     {
 
@@ -15,6 +18,8 @@ namespace GMPP.MainApi
                 config.CreateMap<Project, ProjectDto>();
                 config.CreateMap<VacancyDto, Vacancy>();
                 config.CreateMap<Vacancy, VacancyDto>();
+                config.CreateMap<JobPostingDto, JobPosting>();
+                config.CreateMap<JobPosting, JobPostingDto>();
             });
 
             return mappingConfig;

@@ -31,8 +31,8 @@ namespace GMPP.MainApi.Repository
         {
             var project = _mapper.Map<Project>(projectDto);
 
-            if(string.IsNullOrEmpty(project.Id))
-                //Создание уникального ИД
+            //Создание уникального ИД
+            if (string.IsNullOrEmpty(project.Id))
                 project.Id = Guid.NewGuid().ToString();
 
             _db.Projects.Add(project);

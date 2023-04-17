@@ -25,7 +25,7 @@ namespace GMPP.MainApi.Models
     }
 
     /// <summary>
-    /// Отклик
+    /// Модель Отклика
     /// </summary>
     public class JobPosting
     {
