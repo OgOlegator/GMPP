@@ -6,11 +6,18 @@ namespace GMPP.MainApi.Repository.IRepository
     {
 
         /// <summary>
-        /// Add new project or change project info in data base
+        /// Add new project info in data base
         /// </summary>
         /// <param name="projectDto"></param>
         /// <returns></returns>
-        Task<ProjectDto> CreateUpdateProject(ProjectDto projectDto);
+        Task<ProjectDto> CreateProject(ProjectDto projectDto);
+
+        /// <summary>
+        /// Change project info in data base
+        /// </summary>
+        /// <param name="projectDto"></param>
+        /// <returns></returns>
+        Task<ProjectDto> UpdateProject(ProjectDto projectDto);
 
         /// <summary>
         /// Delete project and tasks this project in data base

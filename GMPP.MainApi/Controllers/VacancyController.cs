@@ -29,7 +29,7 @@ namespace GMPP.MainApi.Controllers
         /// <param name="vacancyId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{vacancyId:int}")]
+        [Route("{vacancyId}")]
         public async Task<ResponseDto> GetVacancyById(string vacancyId)
         {
             try
@@ -52,7 +52,7 @@ namespace GMPP.MainApi.Controllers
         /// <param name="projectId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetByProject/{projectId:int}")]
+        [Route("GetByProject/{projectId}")]
         public async Task<ResponseDto> GetVacanciesByProject(string projectId)
         {
             try
@@ -79,7 +79,7 @@ namespace GMPP.MainApi.Controllers
         {
             try
             {
-                _response.Result = await _repository.CreateUpdateVacancy(vacancy);
+                _response.Result = await _repository.CreateVacancy(vacancy);
             }
             catch (Exception ex)
             {
@@ -101,7 +101,13 @@ namespace GMPP.MainApi.Controllers
         {
             try
             {
-                _response.Result = await _repository.CreateUpdateVacancy(vacancy);
+                _response.Result = await _repository.UpdateVacancy(vacancy);
+            }
+            catch (ArgumentNullException ex)
+            {
+                _response.IsSuccess = false;
+                _response.DisplayMessage = ex.Message;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             catch (Exception ex)
             {
@@ -119,7 +125,7 @@ namespace GMPP.MainApi.Controllers
         /// <param name="vacancyId"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{vacancyId:int}")]
+        [Route("{vacancyId}")]
         public async Task<ResponseDto> DeleteVacancy(string vacancyId)
         {
             try

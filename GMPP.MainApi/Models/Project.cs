@@ -43,7 +43,6 @@ namespace GMPP.MainApi.Models
         /// <summary>
         /// Unique id project
         /// </summary>
-        [Required]
         public string Id { get; set; }
 
         /// <summary>

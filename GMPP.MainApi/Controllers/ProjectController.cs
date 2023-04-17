@@ -51,7 +51,7 @@ namespace GMPP.MainApi.Controllers
         /// <param name="projectId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{projectId:int}")]
+        [Route("{projectId}")]
         public async Task<ResponseDto> GetProjectById(string projectId)
         {
             try
@@ -74,7 +74,7 @@ namespace GMPP.MainApi.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetByUser/{userId:int}")]
+        [Route("GetByUser/{userId}")]
         public async Task<ResponseDto> GetProjectsByUser(string userId)
         {
             try
@@ -101,7 +101,7 @@ namespace GMPP.MainApi.Controllers
         {
             try
             {
-                _response.Result = await _repository.CreateUpdateProject(project);
+                _response.Result = await _repository.CreateProject(project);
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace GMPP.MainApi.Controllers
         {
             try
             {
-                _response.Result = await _repository.CreateUpdateProject(project);
+                _response.Result = await _repository.UpdateProject(project);
             }
             catch (Exception ex)
             {
@@ -141,7 +141,7 @@ namespace GMPP.MainApi.Controllers
         /// <param name="projectId"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{projectId:int}")]
+        [Route("{projectId}")]
         public async Task<ResponseDto> DeleteProject(string projectId)
         {
             try

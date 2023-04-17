@@ -6,11 +6,18 @@ namespace GMPP.MainApi.Repository.IRepository
     {
 
         /// <summary>
-        /// Add new vacancy or change vacancy info in data base
+        /// Add new vacancy in data base
         /// </summary>
         /// <param name="vacancyDto"></param>
         /// <returns></returns>
-        Task<VacancyDto> CreateUpdateVacancy(VacancyDto vacancyDto);
+        Task<VacancyDto> CreateVacancy(VacancyDto vacancyDto);
+
+        /// <summary>
+        /// Change vacancy info in data base
+        /// </summary>
+        /// <param name="vacancyDto"></param>
+        /// <returns></returns>
+        Task<VacancyDto> UpdateVacancy(VacancyDto vacancyDto);
 
         /// <summary>
         /// Delete vacancy in data base

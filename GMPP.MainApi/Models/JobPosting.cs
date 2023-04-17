@@ -32,7 +32,6 @@ namespace GMPP.MainApi.Models
         /// <summary>
         /// Id Responsed
         /// </summary>
-        [Required]
         public string Id { get; set; }
 
         [Required]

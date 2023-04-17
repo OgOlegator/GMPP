@@ -22,25 +22,20 @@ namespace GMPP.MainApi.Repository
         }
 
         /// <summary>
-        /// Add new project or change project info in data base
+        /// Add new project in data base
         /// </summary>
         /// <param name="projectDto"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<ProjectDto> CreateUpdateProject(ProjectDto projectDto)
+        public async Task<ProjectDto> CreateProject(ProjectDto projectDto)
         {
             var project = _mapper.Map<Project>(projectDto);
 
-            var changeProject = await _db.Projects.FirstOrDefaultAsync(item => item.Id == project.Id);
+            if(string.IsNullOrEmpty(project.Id))
+                //Создание уникального ИД
+                project.Id = Guid.NewGuid().ToString();
 
-            if (changeProject != null)
-            {
-                _db.Projects.Update(project);
-            }
-            else
-            {
-                _db.Projects.Add(project);
-            }
+            _db.Projects.Add(project);
 
             try
             {
@@ -48,7 +43,44 @@ namespace GMPP.MainApi.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to create/update project", ex);
+                throw new Exception("Failed to create project", ex);
+            }
+
+            return _mapper.Map<Project, ProjectDto>(project);
+        }
+
+        /// <summary>
+        /// Change project info in data base
+        /// </summary>
+        /// <param name="projectDto"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="Exception"></exception>
+        public async Task<ProjectDto> UpdateProject(ProjectDto projectDto)
+        {
+            var project = _mapper.Map<Project>(projectDto);
+
+            var changeProject = await _db.Projects.FirstOrDefaultAsync(item => item.Id == project.Id);
+
+            if (changeProject == null)
+                throw new ArgumentNullException("Проект не найден");
+
+            changeProject.Name = project.Name;
+            changeProject.Description = project.Description;
+            changeProject.Status = project.Status;
+            changeProject.Level = project.Level;
+            changeProject.Type = project.Type;
+            changeProject.CreatedDate = project.CreatedDate;
+            
+            _db.Projects.Update(changeProject);
+
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update project", ex);
             }
 
             return _mapper.Map<Project, ProjectDto>(project);
@@ -106,7 +138,7 @@ namespace GMPP.MainApi.Repository
         /// <returns></returns>
         public async Task<IEnumerable<ProjectDto>> GetProjects()
         {
-            var listProjects = await _db.Projects.ToListAsync();
+            var listProjects = await _db.Projects.AsNoTracking().ToListAsync();
 
             return _mapper.Map<List<ProjectDto>>(listProjects);
         }

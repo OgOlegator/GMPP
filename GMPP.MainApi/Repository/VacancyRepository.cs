@@ -22,25 +22,20 @@ namespace GMPP.MainApi.Repository
         }
 
         /// <summary>
-        /// Add new vacancy or change vacancy info in data base
+        /// Add new vacancy in data base
         /// </summary>
         /// <param name="vacancyDto"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<VacancyDto> CreateUpdateVacancy(VacancyDto vacancyDto)
+        public async Task<VacancyDto> CreateVacancy(VacancyDto vacancyDto)
         {
             var vacancy = _mapper.Map<Vacancy>(vacancyDto);
 
-            var changeVacancy = await _db.Vacancies.FirstOrDefaultAsync(item => item.Id == vacancy.Id);
+            //Создание уникального ИД
+            if (string.IsNullOrEmpty(vacancy.Id))
+                vacancy.Id = Guid.NewGuid().ToString();
 
-            if (changeVacancy != null)
-            {
-                _db.Vacancies.Update(vacancy);
-            }
-            else
-            {
-                _db.Vacancies.Add(vacancy);
-            }
+            _db.Vacancies.Add(vacancy);
 
             try
             {
@@ -48,7 +43,41 @@ namespace GMPP.MainApi.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to create/update vacancy", ex);
+                throw new Exception("Failed to create vacancy", ex);
+            }
+
+            return _mapper.Map<Vacancy, VacancyDto>(vacancy);
+        }
+
+        /// <summary>
+        /// Change vacancy info in data base
+        /// </summary>
+        /// <param name="vacancyDto"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="Exception"></exception>
+        public async Task<VacancyDto> UpdateVacancy(VacancyDto vacancyDto)
+        {
+            var vacancy = _mapper.Map<Vacancy>(vacancyDto);
+
+            var changeVacancy = await _db.Vacancies.FirstOrDefaultAsync(item => item.Id == vacancy.Id);
+
+            if (changeVacancy == null)
+                throw new ArgumentNullException($"Вакансия {vacancy.Name} не найдена");
+
+            changeVacancy.Name = vacancy.Name;
+            changeVacancy.Description = vacancy.Description;
+            changeVacancy.Status = vacancyDto.Status;
+
+            _db.Vacancies.Update(changeVacancy);
+            
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update vacancy", ex);
             }
 
             return _mapper.Map<Vacancy, VacancyDto>(vacancy);
