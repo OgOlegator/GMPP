@@ -5,6 +5,8 @@ using GMPP.MainApi.Repository;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Converters;
 using System.Reflection;
+using GMPP.MainApi.Services.IServices;
+using GMPP.MainApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+builder.Services.AddScoped<IJobPostingRepository, JobPostingRepository>();
+
+builder.Services.AddTransient<IApplyForJobService, ApplyForJobService>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(o =>
 {
