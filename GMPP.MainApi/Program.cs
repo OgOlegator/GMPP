@@ -10,6 +10,11 @@ using GMPP.MainApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+StaticDetails.LoginEmail = builder.Configuration["AuthEmail"];
+StaticDetails.PasswordEmail = builder.Configuration["AuthPath"];
+
+StaticDetails.AdresseeEmail = builder.Configuration["AddresseeEmail"];
+
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

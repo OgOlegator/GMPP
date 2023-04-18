@@ -1,6 +1,7 @@
 ﻿using GMPP.MainApi.Models;
 using GMPP.MainApi.Models.Dtos;
 using GMPP.MainApi.Repository.IRepository;
+using GMPP.MainApi.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GMPP.MainApi.Controllers
@@ -10,11 +11,13 @@ namespace GMPP.MainApi.Controllers
     public class JobPostingController : ControllerBase
     {
         private readonly IJobPostingRepository _jobPostingRepository;
+        private readonly IApplyForJobService _applyForJobService;
         private ResponseDto _response = new ResponseDto();
 
-        public JobPostingController(IJobPostingRepository jobPostingRepository)
+        public JobPostingController(IJobPostingRepository jobPostingRepository, IApplyForJobService applyForJobService)
         {
             _jobPostingRepository = jobPostingRepository;
+            _applyForJobService = applyForJobService;
         }
 
         /// <summary>
@@ -103,10 +106,13 @@ namespace GMPP.MainApi.Controllers
 
             try
             {
+                var result = await _applyForJobService.SendResponsd(applyForJob);
+
+                if (!result)
+                    return new ResponseDto { IsSuccess = false, DisplayMessage = "Не удалось отправить отклик"};
+
                 _response.Result = await Task.Run(() 
                     => _jobPostingRepository.CreateJobPosting(newResponsdDto));
-
-
 
                 _response.IsSuccess = true;
             }
