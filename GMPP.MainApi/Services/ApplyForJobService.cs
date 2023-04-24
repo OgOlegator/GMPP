@@ -1,6 +1,7 @@
 ﻿using GMPP.MainApi.Models.Dtos;
 using GMPP.MainApi.Services.IServices;
 using MailKit.Net.Smtp;
+using MailKit.Security;
 using MimeKit;
 using System.Linq.Expressions;
 
@@ -27,7 +28,7 @@ namespace GMPP.MainApi.Services
             using var emailMessage = new MimeMessage();
 
             emailMessage.From.Add(new MailboxAddress("Администрация сайта GMPP", StaticDetails.LoginEmail));
-            emailMessage.To.Add(new MailboxAddress("", StaticDetails.AdresseeEmail));
+            emailMessage.To.Add(new MailboxAddress("Пользователь", StaticDetails.AdresseeEmail));
             emailMessage.Subject = "Отклик";
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -38,7 +39,10 @@ namespace GMPP.MainApi.Services
             {
                 using (var client = new SmtpClient())
                 {
-                    await client.ConnectAsync("smtp.mail.ru", 465, false);
+                    //Сейчас используется порт, который не поддерживает не SSL, не TLS
+                    //В будущем стоит арендовать или воспользоваться бесплатной версией собственного SMTP сервера
+                    //Это безопаснее и позволит избежать пробелм с тем, что письма не доходят или попадают в спам
+                    await client.ConnectAsync("smtp.mail.ru", 2525, false);
 
                     await client.AuthenticateAsync(StaticDetails.LoginEmail, StaticDetails.PasswordEmail);
                     await client.SendAsync(emailMessage);
@@ -46,9 +50,9 @@ namespace GMPP.MainApi.Services
                     await client.DisconnectAsync(true);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Не удалось отправить отклик");
+                throw new Exception($"Не удалось отправить отклик. Message - {ex.Message}");
             }
 
             return true;
