@@ -27,7 +27,7 @@ namespace GMPP.MainApi.Models
     /// <summary>
     /// Модель Отклика
     /// </summary>
-    public class JobPosting
+    public class JobResponse
     {
         /// <summary>
         /// Id Responsed

@@ -10,11 +10,6 @@ using GMPP.MainApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-StaticDetails.LoginEmail = builder.Configuration["AuthEmail"];
-StaticDetails.PasswordEmail = builder.Configuration["AuthPath"];
-
-StaticDetails.AdresseeEmail = builder.Configuration["AddresseeEmail"];
-
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -25,7 +20,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
-builder.Services.AddScoped<IJobPostingRepository, JobPostingRepository>();
+builder.Services.AddScoped<IJobResponseRepository, JobResponseRepository>();
 
 builder.Services.AddTransient<IApplyForJobService, ApplyForJobService>();
 

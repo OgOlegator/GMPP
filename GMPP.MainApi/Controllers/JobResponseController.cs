@@ -6,17 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GMPP.MainApi.Controllers
 {
-    [Route("api/responsd")]
+    [Route("api/JobResponse")]
     [ApiController]
-    public class JobPostingController : ControllerBase
+    public class JobResponseController : ControllerBase
     {
-        private readonly IJobPostingRepository _jobPostingRepository;
+        private readonly IJobResponseRepository _jobResponseRepository;
         private readonly IApplyForJobService _applyForJobService;
         private ResponseDto _response = new ResponseDto();
 
-        public JobPostingController(IJobPostingRepository jobPostingRepository, IApplyForJobService applyForJobService)
+        public JobResponseController(IJobResponseRepository jobPostingRepository, IApplyForJobService applyForJobService)
         {
-            _jobPostingRepository = jobPostingRepository;
+            _jobResponseRepository = jobPostingRepository;
             _applyForJobService = applyForJobService;
         }
 
@@ -27,11 +27,11 @@ namespace GMPP.MainApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public async Task<ResponseDto> GetResponsdsById(string id)
+        public async Task<ResponseDto> GetResponseById(string id)
         {
             try
             {
-                _response.Result = await _jobPostingRepository.GetJobPostingById(id);
+                _response.Result = await _jobResponseRepository.GetJobResponseById(id);
             }
             catch (ArgumentNullException ex)
             {
@@ -50,11 +50,11 @@ namespace GMPP.MainApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("user/{userId}")]
-        public async Task<ResponseDto> GetResponsdsByUser(string userId)
+        public async Task<ResponseDto> GetResponsesByUser(string userId)
         {
             try
             {
-                _response.Result = await _jobPostingRepository.GetJobPostingsByUser(userId);
+                _response.Result = await _jobResponseRepository.GetJobResponsesByUser(userId);
             }
             catch (Exception ex)
             {
@@ -73,11 +73,34 @@ namespace GMPP.MainApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("project/{projectId}")]
-        public async Task<ResponseDto> GetResponsdsByProject(string projectId)
+        public async Task<ResponseDto> GetResponsesByProject(string projectId)
         {
             try
             {
-                _response.Result = await _jobPostingRepository.GetJobPostingsByProject(projectId);
+                _response.Result = await _jobResponseRepository.GetJobResponsesByProject(projectId);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.DisplayMessage = ex.Message;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+
+            return _response;
+        }
+
+        /// <summary>
+        /// Получение откликов по ИД вакансии
+        /// </summary>
+        /// <param name="vacancyId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("vacancy/{vacancyId}")]
+        public async Task<ResponseDto> GetResponsesByVacancy(string vacancyId)
+        {
+            try
+            {
+                _response.Result = await _jobResponseRepository.GetJobResponsesByVacancy(vacancyId);
             }
             catch (Exception ex)
             {
@@ -94,9 +117,10 @@ namespace GMPP.MainApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Route("ApplyForJob")]
         public async Task<ResponseDto> ApplyForJob(ApplyForJobDto applyForJob)
         {
-            var newResponsdDto = new JobPostingDto {
+            var newResponsdDto = new JobResponseDto {
                 UserId = applyForJob.UserId,
                 IdVacancy = applyForJob.VacancyId,
                 TextResponsd = applyForJob.TextResponsd,
@@ -106,13 +130,13 @@ namespace GMPP.MainApi.Controllers
 
             try
             {
-                var result = await _applyForJobService.SendResponsd(applyForJob);
+                var result = await _applyForJobService.SendResponse(applyForJob);
 
                 if (!result)
                     return new ResponseDto { IsSuccess = false, DisplayMessage = "Не удалось отправить отклик"};
 
                 _response.Result = await Task.Run(() 
-                    => _jobPostingRepository.CreateJobPosting(newResponsdDto));
+                    => _jobResponseRepository.CreateJobResponse(newResponsdDto));
 
                 _response.IsSuccess = true;
             }

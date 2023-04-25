@@ -18,8 +18,8 @@ namespace GMPP.MainApi
                 config.CreateMap<Project, ProjectDto>();
                 config.CreateMap<VacancyDto, Vacancy>();
                 config.CreateMap<Vacancy, VacancyDto>();
-                config.CreateMap<JobPostingDto, JobPosting>();
-                config.CreateMap<JobPosting, JobPostingDto>();
+                config.CreateMap<JobResponseDto, JobResponse>();
+                config.CreateMap<JobResponse, JobResponseDto>();
             });
 
             return mappingConfig;

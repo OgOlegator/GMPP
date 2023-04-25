@@ -3,7 +3,7 @@
     /// <summary>
     /// Data transfer object Откликов
     /// </summary>
-    public class JobPostingDto
+    public class JobResponseDto
     {
 
         public string Id { get; set; }

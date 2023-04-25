@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GMPP.MainApi.Repository
 {
-    public class JobPostingRepository : IJobPostingRepository
+    public class JobResponseRepository : IJobResponseRepository
     {
         private readonly ApplicationDbContext _db;
         private IMapper _mapper;
         private readonly IVacancyRepository _vacancyRepository;
 
-        public JobPostingRepository(ApplicationDbContext db, IMapper mapper, IVacancyRepository vacancyRepository)
+        public JobResponseRepository(ApplicationDbContext db, IMapper mapper, IVacancyRepository vacancyRepository)
         {
             _db = db;
             _mapper = mapper;
@@ -26,9 +26,9 @@ namespace GMPP.MainApi.Repository
         /// <param name="jobPostingDto"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<JobPostingDto> CreateJobPosting(JobPostingDto jobPostingDto)
+        public async Task<JobResponseDto> CreateJobResponse(JobResponseDto jobPostingDto)
         {
-            var jobPosting = _mapper.Map<JobPosting>(jobPostingDto);
+            var jobPosting = _mapper.Map<JobResponse>(jobPostingDto);
 
             //Создание уникального ИД
             if (string.IsNullOrEmpty(jobPosting.Id))
@@ -45,7 +45,7 @@ namespace GMPP.MainApi.Repository
                 throw new Exception("Failed to create job posting", ex);
             }
 
-            return _mapper.Map<JobPosting, JobPostingDto>(jobPosting);
+            return _mapper.Map<JobResponse, JobResponseDto>(jobPosting);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace GMPP.MainApi.Repository
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception"></exception>
-        public async Task<bool> DeleteJobPosting(string id)
+        public async Task<bool> DeleteJobResponse(string id)
         {
             var jobPosting = await _db.JobPostings.FirstOrDefaultAsync(item => item.Id == id);
 
@@ -82,14 +82,14 @@ namespace GMPP.MainApi.Repository
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<JobPostingDto> GetJobPostingById(string id)
+        public async Task<JobResponseDto> GetJobResponseById(string id)
         {
             var jobPosting = await _db.JobPostings.FirstOrDefaultAsync(item => item.Id == id);
 
             if (jobPosting == null)
                 throw new ArgumentNullException(id.ToString(), "Job posting not found");
 
-            return _mapper.Map<JobPostingDto>(jobPosting);
+            return _mapper.Map<JobResponseDto>(jobPosting);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace GMPP.MainApi.Repository
         /// </summary>
         /// <param name="profectId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<JobPostingDto>> GetJobPostingsByProject(string profectId)
+        public async Task<IEnumerable<JobResponseDto>> GetJobResponsesByProject(string profectId)
         {
             var vacancies = await _vacancyRepository.GetVacanciesByProject(profectId);
 
@@ -107,7 +107,7 @@ namespace GMPP.MainApi.Repository
                     jobPosting => jobPosting.IdVacancy, 
                     vacancy => vacancy.Id, 
                     (jobPosting, vacancy) => 
-                        new JobPostingDto 
+                        new JobResponseDto 
                         { 
                             Id = jobPosting.Id, 
                             IdVacancy = jobPosting.IdVacancy, 
@@ -125,11 +125,24 @@ namespace GMPP.MainApi.Repository
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<JobPostingDto>> GetJobPostingsByUser(string userId)
+        public async Task<IEnumerable<JobResponseDto>> GetJobResponsesByUser(string userId)
         {
             var listJobPostings = await _db.JobPostings.Where(item => item.UserId == userId).ToListAsync();
 
-            return _mapper.Map<List<JobPostingDto>>(listJobPostings);
+            return _mapper.Map<List<JobResponseDto>>(listJobPostings);
+        }
+
+        /// <summary>
+        /// Получение откликов по ИД вакансии
+        /// </summary>
+        /// <param name="vacancyId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<IEnumerable<JobResponseDto>> GetJobResponsesByVacancy(string vacancyId)
+        {
+            var listJobPostings = await _db.JobPostings.Where(item => item.IdVacancy == vacancyId).ToListAsync();
+
+            return _mapper.Map<List<JobResponseDto>>(listJobPostings);
         }
 
         /// <summary>
@@ -139,9 +152,9 @@ namespace GMPP.MainApi.Repository
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception"></exception>
-        public async Task<JobPostingDto> UpdateJobPosting(JobPostingDto jobPostingDto)
+        public async Task<JobResponseDto> UpdateJobResponse(JobResponseDto jobPostingDto)
         {
-            var jobPosting = _mapper.Map<JobPosting>(jobPostingDto);
+            var jobPosting = _mapper.Map<JobResponse>(jobPostingDto);
 
             var changeJobPosting = await _db.JobPostings.FirstOrDefaultAsync(item => item.Id == jobPosting.Id);
 
@@ -162,7 +175,7 @@ namespace GMPP.MainApi.Repository
                 throw new Exception("Failed to update job posting", ex);
             }
 
-            return _mapper.Map<JobPostingDto>(jobPosting);
+            return _mapper.Map<JobResponseDto>(jobPosting);
         }
     }
 }

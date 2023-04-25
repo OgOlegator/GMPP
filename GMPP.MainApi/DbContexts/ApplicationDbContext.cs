@@ -16,7 +16,7 @@ namespace GMPP.MainApi.DbContexts
 
         public DbSet<Vacancy> Vacancies { get; set; }
 
-        public DbSet<JobPosting> JobPostings { get; set; }
+        public DbSet<JobResponse> JobPostings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,7 +49,7 @@ namespace GMPP.MainApi.DbContexts
                     v => (StatusVacancy)Enum.Parse(typeof(StatusVacancy), v));
 
             modelBuilder
-                .Entity<JobPosting>()
+                .Entity<JobResponse>()
                 .Property(e => e.State)
                 .HasConversion(
                     v => v.ToString(),

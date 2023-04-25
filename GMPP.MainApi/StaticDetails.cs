@@ -2,11 +2,8 @@
 {
     public class StaticDetails
     {
-
-        public static string LoginEmail;
-        public static string PasswordEmail;
-
-        public static string AdresseeEmail;
+        public const string SmtpServerMailRu = "smtp.mail.ru";
+        public const int SmtpPortMailRu = 2525;
 
     }
 }

@@ -5,6 +5,7 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using System.Linq.Expressions;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace GMPP.MainApi.Services
 {
@@ -13,9 +14,15 @@ namespace GMPP.MainApi.Services
     /// </summary>
     public class ApplyForJobService : IApplyForJobService
     {
-        public ApplyForJobService()
-        {
+        private readonly IConfiguration _config;
+        private readonly string _adminLoginEmail;
+        private readonly string _adminPassEmail;
 
+        public ApplyForJobService(IConfiguration config)
+        {
+            _config = config;
+            _adminLoginEmail = config["AuthEmail"];
+            _adminPassEmail = config["AuthPath"];
         }
 
         /// <summary>
@@ -24,12 +31,12 @@ namespace GMPP.MainApi.Services
         /// <param name="applyForJob"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<bool> SendResponsd(ApplyForJobDto applyForJob)
+        public async Task<bool> SendResponse(ApplyForJobDto applyForJob)
         {
             using var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Администрация сайта GMPP", StaticDetails.LoginEmail));
-            emailMessage.To.Add(new MailboxAddress("Пользователь", StaticDetails.AdresseeEmail));
+            emailMessage.From.Add(new MailboxAddress("Администрация сайта GMPP", _adminLoginEmail));
+            emailMessage.To.Add(new MailboxAddress("Пользователь", _config["AddresseeEmail"]));
             emailMessage.Subject = "Отклик";
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -43,11 +50,11 @@ namespace GMPP.MainApi.Services
                     //Сейчас используется порт, который не поддерживает не SSL, не TLS
                     //В будущем стоит арендовать или воспользоваться бесплатной версией собственного SMTP сервера
                     //Это безопаснее и позволит избежать пробелм с тем, что письма не доходят или попадают в спам
-                    await client.ConnectAsync("smtp.mail.ru", 2525, false);
+                    await client.ConnectAsync(StaticDetails.SmtpServerMailRu, StaticDetails.SmtpPortMailRu, false);
                     //Строка ниже работает только с отклчюченным антивирусом, т.к. с включенным не проходит проверка сертификата SSL
                     //await client.ConnectAsync("smtp.mail.ru", 465, true);
 
-                    await client.AuthenticateAsync(StaticDetails.LoginEmail, StaticDetails.PasswordEmail);
+                    await client.AuthenticateAsync(_adminLoginEmail, _adminPassEmail);
                     await client.SendAsync(emailMessage);
 
                     await client.DisconnectAsync(true);

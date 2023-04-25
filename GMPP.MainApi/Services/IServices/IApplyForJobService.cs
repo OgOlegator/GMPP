@@ -13,7 +13,7 @@ namespace GMPP.MainApi.Services.IServices
         /// </summary>
         /// <param name="applyForJob"></param>
         /// <returns></returns>
-        Task<bool> SendResponsd(ApplyForJobDto applyForJob);
+        Task<bool> SendResponse(ApplyForJobDto applyForJob);
 
     }
 }
