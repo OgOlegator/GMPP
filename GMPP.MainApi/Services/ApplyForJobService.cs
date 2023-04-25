@@ -1,5 +1,6 @@
 ﻿using GMPP.MainApi.Models.Dtos;
 using GMPP.MainApi.Services.IServices;
+using MailKit.Net.Imap;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
@@ -43,6 +44,8 @@ namespace GMPP.MainApi.Services
                     //В будущем стоит арендовать или воспользоваться бесплатной версией собственного SMTP сервера
                     //Это безопаснее и позволит избежать пробелм с тем, что письма не доходят или попадают в спам
                     await client.ConnectAsync("smtp.mail.ru", 2525, false);
+                    //Строка ниже работает только с отклчюченным антивирусом, т.к. с включенным не проходит проверка сертификата SSL
+                    //await client.ConnectAsync("smtp.mail.ru", 465, true);
 
                     await client.AuthenticateAsync(StaticDetails.LoginEmail, StaticDetails.PasswordEmail);
                     await client.SendAsync(emailMessage);
