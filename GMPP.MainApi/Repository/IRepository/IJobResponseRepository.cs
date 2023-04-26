@@ -17,7 +17,7 @@ namespace GMPP.MainApi.Repository.IRepository
         /// </summary>
         /// <param name="jobResponseDto"></param>
         /// <returns></returns>
-        Task<JobResponseDto> UpdateJobResponse(string idJobResponse, StateJobPosting newState);
+        Task<JobResponseDto> UpdateJobResponse(string idJobResponse, StateJobResponse newState);
 
         /// <summary>
         /// Удаление отклика

@@ -18,7 +18,7 @@ namespace GMPP.MainApi.Models.Dtos
 
         public string TextResponsd { get; set; }
 
-        public StateJobPosting State { get; set; }
+        public StateJobResponse State { get; set; }
 
     }
 }

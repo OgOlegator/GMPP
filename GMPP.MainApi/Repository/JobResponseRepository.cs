@@ -156,7 +156,7 @@ namespace GMPP.MainApi.Repository
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception"></exception>
-        public async Task<JobResponseDto> UpdateJobResponse(string idJobResponse, StateJobPosting newState)
+        public async Task<JobResponseDto> UpdateJobResponse(string idJobResponse, StateJobResponse newState)
         {
             var changeJobResponse = await _db.JobResponses.FirstOrDefaultAsync(item => item.Id == idJobResponse);
 

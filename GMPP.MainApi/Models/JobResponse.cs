@@ -25,7 +25,7 @@ namespace GMPP.MainApi.Models
 
         public string TextResponsd { get; set; } = "";
 
-        public StateJobPosting State { get; set; } = StateJobPosting.ComingSoon;
+        public StateJobResponse State { get; set; } = StateJobResponse.ComingSoon;
 
         /// <summary>
         /// Navigation object for Vacancies

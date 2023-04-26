@@ -3,7 +3,7 @@
     /// <summary>
     /// Статусы отклика
     /// </summary>
-    public enum StateJobPosting
+    public enum StateJobResponse
     {
         /// <summary>
         /// Отклонен

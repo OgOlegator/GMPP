@@ -63,7 +63,7 @@ namespace GMPP.MainApi.DbContexts
                 .Property(e => e.State)
                 .HasConversion(
                     v => v.ToString(),
-                    v => (StateJobPosting)Enum.Parse(typeof(StateJobPosting), v));
+                    v => (StateJobResponse)Enum.Parse(typeof(StateJobResponse), v));
         }
 
     }

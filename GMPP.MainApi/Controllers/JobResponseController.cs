@@ -128,7 +128,7 @@ namespace GMPP.MainApi.Controllers
                 UserId = applyForJob.UserId,
                 IdVacancy = applyForJob.VacancyId,
                 TextResponsd = applyForJob.TextResponsd,
-                State = StateJobPosting.ComingSoon,
+                State = StateJobResponse.ComingSoon,
             };
 
             try
@@ -163,7 +163,7 @@ namespace GMPP.MainApi.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("ApplyForJob/{idJobResponse} {newState}")]
-        public async Task<ResponseDto> UpdateJobResponse(string idJobResponse, StateJobPosting newState)
+        public async Task<ResponseDto> UpdateJobResponse(string idJobResponse, StateJobResponse newState)
         {
             try
             {
