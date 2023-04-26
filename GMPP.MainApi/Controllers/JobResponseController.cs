@@ -32,6 +32,7 @@ namespace GMPP.MainApi.Controllers
             try
             {
                 _response.Result = await _jobResponseRepository.GetJobResponseById(id);
+                _response.IsSuccess = true;
             }
             catch (ArgumentNullException ex)
             {
@@ -55,6 +56,7 @@ namespace GMPP.MainApi.Controllers
             try
             {
                 _response.Result = await _jobResponseRepository.GetJobResponsesByUser(userId);
+                _response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -78,6 +80,7 @@ namespace GMPP.MainApi.Controllers
             try
             {
                 _response.Result = await _jobResponseRepository.GetJobResponsesByProject(projectId);
+                _response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -101,6 +104,7 @@ namespace GMPP.MainApi.Controllers
             try
             {
                 _response.Result = await _jobResponseRepository.GetJobResponsesByVacancy(vacancyId);
+                _response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -124,7 +128,6 @@ namespace GMPP.MainApi.Controllers
                 UserId = applyForJob.UserId,
                 IdVacancy = applyForJob.VacancyId,
                 TextResponsd = applyForJob.TextResponsd,
-                CreateDate = DateTime.Now,
                 State = StateJobPosting.ComingSoon,
             };
 
@@ -139,6 +142,59 @@ namespace GMPP.MainApi.Controllers
                     => _jobResponseRepository.CreateJobResponse(newResponsdDto));
 
                 _response.IsSuccess = true;
+                _response.DisplayMessage = "Отклик отправлен";
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.DisplayMessage = ex.Message;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+                Results.Ok();
+            }
+
+            return _response;
+        }
+
+        /// <summary>
+        /// Обновление статуса отклика
+        /// </summary>
+        /// <param name="idJobResponse"></param>
+        /// <param name="newState"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("ApplyForJob/{idJobResponse} {newState}")]
+        public async Task<ResponseDto> UpdateJobResponse(string idJobResponse, StateJobPosting newState)
+        {
+            try
+            {
+                _response.Result = await _jobResponseRepository.UpdateJobResponse(idJobResponse, newState);
+                _response.IsSuccess = true;
+                _response.DisplayMessage = "Отклик обновлен";
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.DisplayMessage = ex.Message;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+
+            return _response;
+        }
+
+        /// <summary>
+        /// Удаление отклика
+        /// </summary>
+        /// <param name="idJobResponse"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("ApplyForJob/{idJobResponse}")]
+        public async Task<ResponseDto> DeleteJobResponse(string idJobResponse)
+        {
+            try
+            {
+                _response.Result = await _jobResponseRepository.DeleteJobResponse(idJobResponse);
+                _response.IsSuccess = true;
+                _response.DisplayMessage = "Отклик удален";
             }
             catch (Exception ex)
             {

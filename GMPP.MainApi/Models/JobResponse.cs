@@ -29,9 +29,6 @@ namespace GMPP.MainApi.Models
     /// </summary>
     public class JobResponse
     {
-        /// <summary>
-        /// Id Responsed
-        /// </summary>
         public string Id { get; set; }
 
         [Required]
@@ -42,6 +39,9 @@ namespace GMPP.MainApi.Models
 
         [Required]
         public DateTime CreateDate { get; set; } = DateTime.Now;
+
+        [Required]
+        public DateTime LastChangedDate { get; set; } = DateTime.Now;
 
         public string TextResponsd { get; set; } = "";
 

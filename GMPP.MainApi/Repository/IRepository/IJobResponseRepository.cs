@@ -1,4 +1,5 @@
-﻿using GMPP.MainApi.Models.Dtos;
+﻿using GMPP.MainApi.Models;
+using GMPP.MainApi.Models.Dtos;
 
 namespace GMPP.MainApi.Repository.IRepository
 {
@@ -7,16 +8,16 @@ namespace GMPP.MainApi.Repository.IRepository
         /// <summary>
         /// Создание отклика
         /// </summary>
-        /// <param name="jobPostingDto"></param>
+        /// <param name="jobResponseDto"></param>
         /// <returns></returns>
-        Task<JobResponseDto> CreateJobResponse(JobResponseDto jobPostingDto);
+        Task<JobResponseDto> CreateJobResponse(JobResponseDto jobResponseDto);
 
         /// <summary>
         /// Обновление отклика
         /// </summary>
-        /// <param name="jobPostingDto"></param>
+        /// <param name="jobResponseDto"></param>
         /// <returns></returns>
-        Task<JobResponseDto> UpdateJobResponse(JobResponseDto jobPostingDto);
+        Task<JobResponseDto> UpdateJobResponse(string idJobResponse, StateJobPosting newState);
 
         /// <summary>
         /// Удаление отклика

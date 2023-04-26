@@ -12,11 +12,20 @@ namespace GMPP.MainApi.DbContexts
 
         }
 
+        /// <summary>
+        /// Проекты
+        /// </summary>
         public DbSet<Project> Projects { get; set; }
 
+        /// <summary>
+        /// Вакансии
+        /// </summary>
         public DbSet<Vacancy> Vacancies { get; set; }
 
-        public DbSet<JobResponse> JobPostings { get; set; }
+        /// <summary>
+        /// Отклики
+        /// </summary>
+        public DbSet<JobResponse> JobResponses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
