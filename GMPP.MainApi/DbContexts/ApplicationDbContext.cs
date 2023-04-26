@@ -1,4 +1,5 @@
 ﻿using GMPP.MainApi.Models;
+using GMPP.MainApi.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace GMPP.MainApi.DbContexts

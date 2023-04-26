@@ -1,5 +1,5 @@
-﻿using GMPP.MainApi.Models;
-using GMPP.MainApi.Models.Dtos;
+﻿using GMPP.MainApi.Models.Dtos;
+using GMPP.MainApi.Models.Enums;
 using GMPP.MainApi.Repository.IRepository;
 using GMPP.MainApi.Services.IServices;
 using Microsoft.AspNetCore.Mvc;

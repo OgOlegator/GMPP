@@ -2,6 +2,7 @@
 using GMPP.MainApi.DbContexts;
 using GMPP.MainApi.Models;
 using GMPP.MainApi.Models.Dtos;
+using GMPP.MainApi.Models.Enums;
 using GMPP.MainApi.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;

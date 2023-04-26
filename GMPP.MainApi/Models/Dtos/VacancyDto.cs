@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using GMPP.MainApi.Models.Enums;
 
 namespace GMPP.MainApi.Models.Dtos
 {

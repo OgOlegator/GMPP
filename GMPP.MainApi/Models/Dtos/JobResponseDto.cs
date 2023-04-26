@@ -1,4 +1,6 @@
-﻿namespace GMPP.MainApi.Models.Dtos
+﻿using GMPP.MainApi.Models.Enums;
+
+namespace GMPP.MainApi.Models.Dtos
 {
     /// <summary>
     /// Data transfer object Откликов

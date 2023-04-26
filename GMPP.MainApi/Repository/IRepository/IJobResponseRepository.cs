@@ -1,5 +1,5 @@
-﻿using GMPP.MainApi.Models;
-using GMPP.MainApi.Models.Dtos;
+﻿using GMPP.MainApi.Models.Dtos;
+using GMPP.MainApi.Models.Enums;
 
 namespace GMPP.MainApi.Repository.IRepository
 {

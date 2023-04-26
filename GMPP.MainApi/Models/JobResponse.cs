@@ -1,29 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GMPP.MainApi.Models.Enums;
 
 namespace GMPP.MainApi.Models
 {
-    /// <summary>
-    /// Статусы отклика
-    /// </summary>
-    public enum StateJobPosting
-    {
-        /// <summary>
-        /// Отклонен
-        /// </summary>
-        Rejected,
-
-        /// <summary>
-        /// Подтвержден
-        /// </summary>
-        Confirmed,
-
-        /// <summary>
-        /// Ожидает подтверждения
-        /// </summary>
-        ComingSoon 
-    }
-
     /// <summary>
     /// Модель Отклика
     /// </summary>

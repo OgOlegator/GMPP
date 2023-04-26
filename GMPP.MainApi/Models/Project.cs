@@ -1,41 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using GMPP.MainApi.Models.Enums;
 
 namespace GMPP.MainApi.Models
 {
-    /// <summary>
-    /// Project execution status
-    /// </summary>
-    public enum StatusProject
-    {
-        NotStarted,
-        Active,
-        Completed,
-        Close
-    }
-
-    /// <summary>
-    /// Type of technology used in the implementation of the project
-    /// </summary>
-    public enum TypeProject
-    {
-        Web,
-        Desktop,
-        Cloud,
-        MobileApp,
-        DataScience,
-    }
-
-    /// <summary>
-    /// Skill level for execute Project
-    /// </summary>
-    public enum LevelProject
-    {
-        Easy,
-        Medium,
-        Hard,
-        VeryHard
-    }
 
     public class Project
     {

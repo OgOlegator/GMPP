@@ -1,16 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GMPP.MainApi.Models.Enums;
 
 namespace GMPP.MainApi.Models
 {
-    /// <summary>
-    /// Employee search status
-    /// </summary>
-    public enum StatusVacancy
-    {
-        Open,
-        Close
-    }
 
     public class Vacancy
     {
